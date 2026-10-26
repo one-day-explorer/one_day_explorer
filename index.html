@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explore my travel experiences, discover destinations around the world, and read my personal travel stories.">
+
+    <meta name="theme-color" content="#24373b">
+
+    <title>One Day Explorer | My Travel Adventures</title>
+    
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="#start" class="logo" aria-label="One Day Explorer - Home">
+            one_day_explorer<span>.</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="#start">Home</a>
+            <a href="#karte">Travel Map</a>
+            <a href="#reisen">Travel Stories</a>
+            <a href="#ueber-mich">About Me</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="start">
+            <p class="eyebrow">MY JOURNEY. MY STORIES.</p>
+
+            <h1>
+                The world is waiting.<br>
+                <span>Let's explore it.</span>
+            </h1>
+
+            <p class="intro">
+                Discover new places, experience unforgettable moments,
+                and collect memories along the way.
+                Join me on my journey around the world.
+            </p>
+
+            <a href="#karte" class="button">
+                Explore My World ↗
+            </a>
+        </section>
+
+        <!-- Travel Map -->
+        <section class="section" id="karte">
+            <p class="eyebrow">MY TRAVEL FOOTPRINTS</p>
+
+            <h2>Explore My World</h2>
+
+            <p>
+                Every country has a story to tell.
+                Discover the places I've visited and explore
+                the destinations that have shaped my journey.
+            </p>
+
+            <div class="travel-map-panel">
+                <div class="map-heading">
+                    <div>
+                        <p class="eyebrow">EXPLORE THE WORLD</p>
+                        <h3>Discover Countries</h3>
+                    </div>
+
+                    <button id="resetMap" class="map-reset-button" type="button">
+                        Reset Map
+                    </button>
+                </div>
+
+                <div id="worldMap" role="region" aria-label="Interactive world map"></div>
+                
+            <div class="map-dashboard">
+                <div class="map-dashboard-heading">
+                    <p class="eyebrow">MY TRAVEL FOOTPRINT</p>
+                    <h3>My World, My Adventures</h3>
+                    <p>A little overview of the places I've explored so far.</p>
+                </div>
+                
+                <div class="map-stats" aria-label="Visited country statistics">
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="totalVisitedCount">0</span>
+                        <span class="map-stat-label">Countries visited</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="europeVisitedCount">0</span>
+                        <span class="map-stat-label">Europe</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="asiaVisitedCount">0</span>
+                        <span class="map-stat-label">Asia</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="africaVisitedCount">0</span>
+                        <span class="map-stat-label">Africa</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="northAmericaVisitedCount">0</span>
+                        <span class="map-stat-label">North America</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="southAmericaVisitedCount">0</span>
+                        <span class="map-stat-label">South America</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="oceaniaVisitedCount">0</span>
+                        <span class="map-stat-label">Oceania</span>
+                    </div>
+
+                    <div class="map-stat">
+                        <span class="map-stat-number" id="antarcticaVisitedCount">0</span>
+                        <span class="map-stat-label">Antarctica</span>
+                    </div>
+                </div>
+
+                <div class="continent-filter">
+                    <p class="continent-filter-label">Explore by continent</p>
+
+                    <div class="continent-filter-buttons" role="group" aria-label="Filter visited countries by continent">
+                        <button
+                            type="button"
+                            class="continent-filter-button is-active"
+                            data-continent="all"
+                            aria-pressed="true"
+                        >
+                            All countries
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="europe"
+                            aria-pressed="false"
+                        >
+                            Europe
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="asia"
+                            aria-pressed="false"
+                        >
+                            Asia
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="africa"
+                            aria-pressed="false"
+                        >
+                            Africa
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="northAmerica"
+                            aria-pressed="false"
+                        >
+                            North America
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="southAmerica"
+                            aria-pressed="false"
+                        >
+                            South America
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="oceania"
+                            aria-pressed="false"
+                        >
+                            Oceania
+                        </button>
+
+                        <button
+                            type="button"
+                            class="continent-filter-button"
+                            data-continent="antarctica"
+                            aria-pressed="false"
+                        >
+                            Antarctica
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="map-legend">
+                    <div class="map-legend-item">
+                        <span class="map-legend-swatch map-legend-visited"></span>
+                        <span>Visited</span>
+                    </div>
+
+                    <div class="map-legend-item">
+                        <span class="map-legend-swatch map-legend-unvisited"></span>
+                        <span>Not yet explored</span>
+                    </div>
+                </div>
+            </div>
+
+                <div class="map-info map-info-panel" aria-live="polite">
+                    <span class="map-info-dot"></span>
+                    <p id="countryInfo">Select a country to explore it.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Countries by Continent -->
+        <section class="section" id="reisen">
+            <p class="eyebrow">MY TRAVEL FOOTPRINTS</p>
+            <h2>Countries I've Explored</h2>
+            <p>
+                Explore the countries I've visited.
+                Select a country to discover my adventures
+                and stories from its cities.
+            </p>
+
+            <div class="continent-grid">
+
+                <!-- Europe -->
+                <article class="continent-card">
+                    <p class="eyebrow">01 / CONTINENT</p>
+                    <h3>Europe</h3>
+                    <ul class="country-list">
+                        <li><a href="europe/albania.html">Albania ↗</a></li>
+                        <li><a href="europe/austria.html">Austria ↗</a></li>
+                        <li><a href="europe/belgium.html">Belgium ↗</a></li>
+                        <li><a href="europe/bosnia-and-herzegovina.html">Bosnia and Herzegovina ↗</a></li>
+                        <li><a href="europe/croatia.html">Croatia ↗</a></li>
+                        <li><a href="europe/czechia.html">Czechia ↗</a></li>
+                        <li><a href="europe/denmark.html">Denmark ↗</a></li>
+                        <li><a href="europe/finland.html">Finland ↗</a></li>
+                        <li><a href="europe/france.html">France ↗</a></li>
+                        <li><a href="europe/germany.html">Germany ↗</a></li>
+                        <li><a href="europe/hungary.html">Hungary ↗</a></li>
+                        <li><a href="europe/ireland.html">Ireland ↗</a></li>
+                        <li><a href="europe/italy.html">Italy ↗</a></li>
+                        <li><a href="europe/kosovo.html">Kosovo ↗</a></li>
+                        <li><a href="europe/liechtenstein.html">Liechtenstein ↗</a></li>
+                        <li><a href="europe/luxembourg.html">Luxembourg ↗</a></li>
+                        <li><a href="europe/malta.html">Malta ↗</a></li>
+                        <li><a href="europe/monaco.html">Monaco ↗</a></li>
+                        <li><a href="europe/netherlands.html">Netherlands ↗</a></li>
+                        <li><a href="europe/poland.html">Poland ↗</a></li>
+                        <li><a href="europe/portugal.html">Portugal ↗</a></li>
+                        <li><a href="europe/romania.html">Romania ↗</a></li>
+                        <li><a href="europe/slovakia.html">Slovakia ↗</a></li>
+                        <li><a href="europe/slovenia.html">Slovenia ↗</a></li>
+                        <li><a href="europe/spain.html">Spain ↗</a></li>
+                        <li><a href="europe/sweden.html">Sweden ↗</a></li>
+                        <li><a href="europe/switzerland.html">Switzerland ↗</a></li>
+                        <li><a href="europe/vatican-city.html">Vatican City ↗</a></li>
+                    </ul>
+                </article>
+
+                <!-- Asia -->
+                <article class="continent-card">
+                    <p class="eyebrow">02 / CONTINENT</p>
+                    <h3>Asia</h3>
+                    <ul class="country-list">
+                        <li><a href="asia/bahrain.html">Bahrain ↗</a></li>
+                        <li><a href="asia/kuwait.html">Kuwait ↗</a></li>
+                        <li><a href="asia/kyrgyzstan.html">Kyrgyzstan ↗</a></li>
+                        <li><a href="asia/oman.html">Oman ↗</a></li>
+                        <li><a href="asia/united-arab-emirates.html">United Arab Emirates ↗</a></li>
+                    </ul>
+                </article>
+
+                <!-- Africa -->
+                <article class="continent-card">
+                    <p class="eyebrow">03 / CONTINENT</p>
+                    <h3>Africa</h3>
+                    <ul class="country-list">
+                        <li><a href="africa/ivory-coast.html">Ivory Coast ↗</a></li>
+                    </ul>
+                </article>
+
+                <!-- North America -->
+                <article class="continent-card">
+                    <p class="eyebrow">04 / CONTINENT</p>
+                    <h3>North America</h3>
+                    <p>No countries added yet.</p>
+                </article>
+
+                <!-- South America -->
+                <article class="continent-card">
+                    <p class="eyebrow">05 / CONTINENT</p>
+                    <h3>South America</h3>
+                    <p>No countries added yet.</p>
+                </article>
+
+                <!-- Oceania -->
+                <article class="continent-card">
+                    <p class="eyebrow">06 / CONTINENT</p>
+                    <h3>Oceania</h3>
+                    <p>No countries added yet.</p>
+                </article>
+
+                <!-- Antarctica -->
+                <article class="continent-card">
+                    <p class="eyebrow">07 / CONTINENT</p>
+                    <h3>Antarctica</h3>
+                    <p>No countries added yet.</p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section class="section about" id="ueber-mich">
+            <p class="eyebrow">THE PERSON BEHIND THE JOURNEY</p>
+
+            <h2>Hey, I'm the Explorer!</h2>
+
+            <p>
+                Welcome to my personal travel journal.
+                I'm passionate about discovering new places,
+                experiencing different cultures, and collecting
+                memories that last a lifetime.
+
+                This is where I share my adventures,
+                one destination at a time.
+            </p>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>
+            © 2026 one_day_explorer ·
+            Exploring the world, one day at a time.
+            <span aria-hidden="true">🌍</span>
+        </p>
+        
+        <a
+            class="instagram-link"
+            href="https://www.instagram.com/one_day_explorer/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit One Day Explorer on Instagram"
+        >
+            <svg
+                class="instagram-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-label="Instagram"
+            >
+                <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                />
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                />
+                <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1.2"
+                    fill="currentColor"
+                />
+            </svg>
+        </a>
+
+        <div class="footer-legal">
+            <a href="legal.html">Privacy Policy & Imprint</a>
+        </div>
+
+    </footer>
+
+</body>
+</html>
